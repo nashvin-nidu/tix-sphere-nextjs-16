@@ -1,0 +1,42 @@
+import Image from "next/image";
+import Link from "next/link";
+
+
+interface Props {
+    title: string;
+    image: string;
+    id: string;
+    location: string;
+    date: string;
+    time: string;
+}
+
+const EventCard = ({id ,title, image, location, date, time}: Props) => {
+    return(
+        <Link href={`/event/${id}`} id="event-card">
+            <Image src={image} alt={title} className="poster" width={410} height={300}/>
+            <div className="flex flex-row gap-2">
+                <Image src="/icons/pin.svg" alt="pin-icon" width={14} height={14} />
+                <p>{location}</p>
+            </div>
+            <p className="title">{title}</p>
+
+            
+
+            <div className="datetime">
+                <div>
+                    <Image src="/icons/calendar.svg" alt="calandar-icon" width={14} height={14} />
+                    <p>{date}</p>
+                </div>
+                <div>
+                    <Image src="/icons/clock.svg" alt="clock-icon" width={14} height={14} />
+                    <p>{time}</p>
+                </div>
+            </div>
+
+            
+        </Link>
+    )
+}
+
+export default EventCard;
