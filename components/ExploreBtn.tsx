@@ -1,10 +1,11 @@
 "use client"
 import Image from "next/image";
+import posthog from "posthog-js";
 
 const ExploreBtn = () =>{
     return(
         <a href="#events">
-            <button type="button" id="explore-btn" className="mt-7 mx-auto flex items-center justify-center gap-2 whitespace-nowrap" onClick={()=> (console.log("clicked"))}
+            <button type="button" id="explore-btn" className="mt-7 mx-auto flex items-center justify-center gap-2 whitespace-nowrap" onClick={()=> (posthog.capture('my event', { property: 'value' }))}
             >
                 <span>Explore Events</span>
                 <Image src="\icons\arrow-down.svg" alt="arrow-down" width={24} height={24} />
