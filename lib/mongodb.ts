@@ -8,7 +8,7 @@ type MongooseCache = {
 
 // Extend the global object to include our mongoose cache
 declare global {
-  var mongoose: MongooseCache | undefined;
+  var mongooseConnection: MongooseCache | undefined;
 }
 
 // Retrieve MongoDB URI from environment variables
@@ -23,10 +23,11 @@ if (!MONGODB_URI) {
 // Initialize the cache object
 // In development, use a global variable to preserve the connection across hot reloads
 // In production, the cache is scoped to this module
-const cached: MongooseCache = global.mongoose || { conn: null, promise: null };
+const cached: MongooseCache =
+  global.mongooseConnection || { conn: null, promise: null };
 
-if (!global.mongoose) {
-  global.mongoose = cached;
+if (!global.mongooseConnection) {
+  global.mongooseConnection = cached;
 }
 
 /**
