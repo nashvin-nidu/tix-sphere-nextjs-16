@@ -103,9 +103,6 @@ const EventSchema = new Schema<IEvent>(
   }
 );
 
-// Create unique index on slug for faster lookups
-EventSchema.index({ slug: 1 });
-
 // Pre-save hook for slug generation, date normalization, and validation
 EventSchema.pre('save', function (next) {
   // Generate slug only if title is modified or document is new
