@@ -10,9 +10,9 @@ if (!BASE_URL) {
 }
 
 async function Page() {
-  const response = await fetch(`${BASE_URL}/api/events`)
-  const events = await response.json()
-
+  const response = await fetch(`${BASE_URL}/api/events`);
+  const data = await response.json()
+  const events = data.events
   return (
     <section> 
       <h1 className="text-center">The Hub for Every Dev <br /> Event You Can&apos;t Miss</h1>
