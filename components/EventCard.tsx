@@ -5,15 +5,15 @@ import Link from "next/link";
 interface Props {
     title: string;
     image: string;
-    id: string;
+    slug: string;
     location: string;
     date: string;
     time: string;
 }
 
-const EventCard = ({id ,title, image, location, date, time}: Props) => {
+const EventCard = ({slug, title, image, location, date, time}: Props) => {
     return(
-        <Link href={`/event/${id}`} id="event-card">
+        <Link href={`/events/${slug}`} id="event-card">
             <Image src={image} alt={title} className="poster" width={410} height={300}/>
             <div className="flex flex-row gap-2">
                 <Image src="/icons/pin.svg" alt="pin-icon" width={14} height={14} />

@@ -1,9 +1,18 @@
 import EventCard from "@/components/EventCard";
 import ExploreBtn from "@/components/ExploreBtn";
-import { events } from "@/lib/constants";
+import { IEvent } from "@/database";
+// import { events } from "@/lib/constants";
 
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 
-export default function Home() {
+if (!BASE_URL) {
+  throw new Error('NEXT_PUBLIC_BASE_URL environment variable is required');
+}
+
+async function Page() {
+  const response = await fetch(`${BASE_URL}/api/events`)
+  const events = await response.json()
+
   return (
     <section> 
       <h1 className="text-center">The Hub for Every Dev <br /> Event You Can&apos;t Miss</h1>
@@ -14,8 +23,8 @@ export default function Home() {
         <h3>Featured Events</h3>
 
         <ul className="events list-none">
-          {events.map((event) => 
-            (<li key={event.id}>
+          {events.map((event: IEvent) => 
+            (<li key={event.slug}>
               <EventCard {...event} />
             </li>))
           }
@@ -25,3 +34,6 @@ export default function Home() {
 
   );
 }
+
+
+export default Page;
