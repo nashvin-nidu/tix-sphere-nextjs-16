@@ -45,8 +45,15 @@ export async function POST(req: NextRequest){
         //setting the image into cloudinary url
         event.image = (uploadResults as {secure_url: string}).secure_url
 
+        const tags = JSON.parse(formData.get("tags") as string);
+        const agenda = JSON.parse(formData.get("agenda") as string);
+        
         //create the event to MongoDB
-        const eventCreated = await Event.create(event);
+        const eventCreated = await Event.create({
+            ...event,
+            tags: tags,
+            agenda: agenda,
+        });
         return NextResponse.json({message: "Event Created Successfully", event: eventCreated}, { status:201 });
 
     }catch(e){
@@ -60,7 +67,7 @@ export async function GET(){
 
         //fetch data
         const events = await Event.find().sort({createdAt: -1});
-        return NextResponse.json(events)
+        return NextResponse.json({message: "Events fetched successfully", events})
     }catch(e){
         return NextResponse.json({message: "Failed to Fetch" ,error: e}, { status:500 });
     }
