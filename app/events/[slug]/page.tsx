@@ -1,7 +1,9 @@
 import { notFound } from "next/navigation";
 import Image from "next/image";
-import { json } from "stream/consumers";
 import BookEvent from "@/components/BookEvent";
+import { SimilarEventDetails } from "@/lib/actions/event.action";
+import EventCard from "@/components/EventCard";
+import { IEvent } from "@/database";
 
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
@@ -41,6 +43,7 @@ const EventDetailPage = async ({params} : {params: Promise<{slug:string}> }) => 
     const {title, description, time, date, agenda, image, location, Overview, mode, audience, organizer, tags} = event;
 
     const Booking = 0;
+    const similarEvents: IEvent[] = await SimilarEventDetails(slug);
 
    return (
     <section id="event">
@@ -66,13 +69,13 @@ const EventDetailPage = async ({params} : {params: Promise<{slug:string}> }) => 
                     <EventDetailItem icon="/icons/audience.svg" alt="audience" label={audience} />
                 </section>
 
-                <EventAgenda agendaItems={JSON.parse(agenda)} />
+                <EventAgenda agendaItems={agenda} />
                 <section className="flex-col-gap-2">
                     <h2>About the Organizer</h2>
                     <p>{organizer}</p>
                 </section>
 
-                <EventTags tags={JSON.parse(tags)} />
+                <EventTags tags={tags} />
 
             </div>
 
@@ -85,6 +88,15 @@ const EventDetailPage = async ({params} : {params: Promise<{slug:string}> }) => 
                     <BookEvent />
                 </div>
             </aside>
+        </div>
+
+        <div className="flex w-full flex-col gap-4 pt-20">
+            <h2>Similar Events</h2>
+            <div className="events">
+                    {similarEvents.length > 0 && similarEvents.map((similarEvent: IEvent) =>(
+                    <EventCard key={similarEvent.title} {...similarEvent} />
+                ))}
+            </div>
         </div>
     </section>
    ) 
