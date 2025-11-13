@@ -4,6 +4,7 @@ import BookEvent from "@/components/BookEvent";
 import { SimilarEventDetails } from "@/lib/actions/event.action";
 import EventCard from "@/components/EventCard";
 import { IEvent } from "@/database";
+import { cacheLife} from "next/cache";
 
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
@@ -34,13 +35,16 @@ const EventTags = ({tags}: {tags: string[]}) => (
 )
 
 const EventDetailPage = async ({params} : {params: Promise<{slug:string}> }) => {
+    'use cache'
+    cacheLife("hours");
+    
     const { slug } = await params;
     const response = await fetch(`${BASE_URL}/api/events/${slug}`);
     const { event } = await response.json();
 
     if(!event) return notFound();
 
-    const {title, description, time, date, agenda, image, location, Overview, mode, audience, organizer, tags} = event;
+    const {title, description, time, date, agenda, image, location, overview, mode, audience, organizer, tags} = event;
 
     const Booking = 0;
     const similarEvents: IEvent[] = await SimilarEventDetails(slug);
@@ -58,7 +62,7 @@ const EventDetailPage = async ({params} : {params: Promise<{slug:string}> }) => 
                 <Image src={image} alt="event-banner" className="banner" width={800} height={800}/>
                 <section className="flex-col-gap-2">
                     <h2>Overview</h2>
-                    <p>{Overview}</p>
+                    <p>{overview}</p>
                 </section>
                 <section className="flex-col-gap-2">
                     <h2>Event Details</h2>
@@ -81,11 +85,10 @@ const EventDetailPage = async ({params} : {params: Promise<{slug:string}> }) => 
 
             {/* {Booking Form} */}
             <aside className="booking">
-                <p className="text-lg font-semibold">Booking</p>
                 <div className="signup-card">
                     <h2>Book Your Spot</h2>
                     {Booking > 0 ? <p className="text-sm">Join {Booking} have already booked their spot</p> : <p className="text-sm">Be The First to Book Your Spot</p>}
-                    <BookEvent />
+                    <BookEvent event_id={event._id} slug={event.slug}  />
                 </div>
             </aside>
         </div>
