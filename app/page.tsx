@@ -11,12 +11,13 @@ if (!BASE_URL) {
 
 async function Page() {
   "use cache"
+  cacheLife("hours");
+  cacheTag("event-cache");
   const response = await fetch(`${BASE_URL}/api/events`);
   const data = await response.json()
   const events = data.events
 
-  cacheLife("hours");
-  cacheTag("event-cache");
+  
 
   return (
     <section> 
