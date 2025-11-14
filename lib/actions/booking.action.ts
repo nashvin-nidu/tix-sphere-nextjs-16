@@ -18,6 +18,6 @@ export const BookingEvent = async ({event_id, slug, email }: {event_id:string, s
 
     }catch(e){
         console.error(e);
-        return ({success: false});
+        return ({success: false, errorData: e});
     }
 }
