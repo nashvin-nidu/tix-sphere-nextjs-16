@@ -22,7 +22,7 @@ const BookEvent = ({event_id, slug} : {event_id: string, slug: string}) => {
             setloarding(false);
             setSubmitted(true);
             posthog.capture("event_booking", {event_id, slug, email});
-            }else {
+            }else{
                 setloarding(false);
                 setError("You're already Booked")
             }
