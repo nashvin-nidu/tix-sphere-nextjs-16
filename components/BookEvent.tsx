@@ -14,7 +14,7 @@ const BookEvent = ({event_id, slug} : {event_id: string, slug: string}) => {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         
-        const {success} = await BookingEvent({event_id, slug, email})
+        const {success, error: errorMessage} = await BookingEvent({event_id, slug, email})
         setError('');
         setloarding(true);
         if(success){
