@@ -13,18 +13,27 @@ const BookEvent = ({event_id, slug} : {event_id: string, slug: string}) => {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        
-        const {success} = await BookingEvent({event_id, slug, email})
         setError('');
-        setloarding(true);
-        if(success){
+            setloarding(true);
+        try{
+            
+            const {success} = await BookingEvent({event_id, slug, email})
+             if(success){
             setloarding(false);
             setSubmitted(true);
             posthog.capture("event_booking", {event_id, slug, email});
-        }else {
-            setloarding(false);
-            setError("You're already Booked")
+            }else {
+                setloarding(false);
+                setError("You're already Booked")
+            }
+        }catch{
+            setloarding(false)
+            setError("Newwork Error, Please try again");
         }
+        
+        
+        
+       
     }
     return(
         <div id="book-event">
