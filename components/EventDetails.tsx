@@ -37,7 +37,7 @@ const EventTags = ({tags}: {tags: string[]}) => (
 )
 
 
-export  const EventDetails = async ({params} : {params: Promise<string> }) => {
+const EventDetails = async ({params} : {params: Promise<string> }) => {
 
     'use cache'
     cacheLife("hours");
@@ -110,3 +110,5 @@ export  const EventDetails = async ({params} : {params: Promise<string> }) => {
    ) 
 }
 
+
+export default EventDetails;
