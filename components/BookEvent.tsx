@@ -13,6 +13,7 @@ const BookEvent = ({event_id, slug} : {event_id: string, slug: string}) => {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+        setloading(true);
         
         const {success} = await BookingEvent({event_id, slug, email})
         setError('');
@@ -26,6 +27,8 @@ const BookEvent = ({event_id, slug} : {event_id: string, slug: string}) => {
             setError("You're already Booked")
         }
     }
+
+
     return(
         <div id="book-event">
             {error && <p className="text-sm text-red-600">{error}</p>}
