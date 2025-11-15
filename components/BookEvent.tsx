@@ -9,32 +9,30 @@ const BookEvent = ({event_id, slug} : {event_id: string, slug: string}) => {
     const [email, setEmail] = useState('');
     const [submitted, setSubmitted] = useState(false);
     const [error, setError] = useState("");
-    const [loarding, setloarding] = useState(false);
+    const [loading, setloading] = useState(false);
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        setError('');
-            setloarding(true);
+        setloading(true);
+        
         try{
-            
             const {success} = await BookingEvent({event_id, slug, email})
-             if(success){
-            setloarding(false);
-            setSubmitted(true);
-            posthog.capture("event_booking", {event_id, slug, email});
-            }else{
-                setloarding(false);
-                setError("You're already Booked")
+            if(success){
+                setloading(false);
+                setSubmitted(true);
+                setError('');
+                posthog.capture("event_booking", {event_id, slug, email});
+            }else {
+                setloading(false);
+                setError("You're already Booked");
             }
         }catch{
-            setloarding(false)
-            setError("Newwork Error, Please try again");
+            setloading(false);
+            setError("Network Error");
         }
-        
-        
-        
-       
     }
+
+
     return(
         <div id="book-event">
             {error && <p className="text-sm text-red-600">{error}</p>}
@@ -54,7 +52,7 @@ const BookEvent = ({event_id, slug} : {event_id: string, slug: string}) => {
                         />
                     </div>
                     
-                    <button type="submit" className="button-submit" disabled={loarding}>{loarding ? 'Submitting...' : 'Submit'}</button>           
+                    <button type="submit" className="button-submit" disabled={loading}>{loading ? 'Submitting...' : 'Submit'}</button>           
                 </form>
             ) }
         </div>
