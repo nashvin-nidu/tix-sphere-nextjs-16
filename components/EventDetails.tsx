@@ -6,10 +6,9 @@ import { IEvent } from "@/database";
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import { cacheLife} from "next/cache";
-import { events } from "@/lib/constants";
 
 
-// const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 
 
 const EventDetailItem = ({icon, alt, label} : {icon:string; alt: string, label: string}) => (
@@ -43,9 +42,8 @@ const EventDetails = async ({params} : {params: Promise<string> }) => {
     cacheLife("hours");
     
     const slug = await params;
-    // const response = await fetch(`${BASE_URL}/api/events/${slug}`);
-    // const { event } = await response.json();
-    const event = events.find((e) => e.id === slug);
+    const response = await fetch(`${BASE_URL}/api/events/${slug}`);
+    const { event } = await response.json();
 
     if(!event) return notFound();
 
@@ -93,7 +91,7 @@ const EventDetails = async ({params} : {params: Promise<string> }) => {
                 <div className="signup-card">
                     <h2>Book Your Spot</h2>
                     {Booking > 0 ? <p className="text-sm">Join {Booking} have already booked their spot</p> : <p className="text-sm">Be The First to Book Your Spot</p>}
-                    <BookEvent event_id={event.id} slug={slug}  />
+                    <BookEvent event_id={event._id} slug={slug}  />
                 </div>
             </aside>
         </div>
