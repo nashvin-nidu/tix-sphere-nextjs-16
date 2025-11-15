@@ -9,7 +9,7 @@ const BookEvent = ({event_id, slug} : {event_id: string, slug: string}) => {
     const [email, setEmail] = useState('');
     const [submitted, setSubmitted] = useState(false);
     const [error, setError] = useState("");
-    const [loarding, setloarding] = useState(false);
+    const [loading, setloading] = useState(false);
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -17,13 +17,13 @@ const BookEvent = ({event_id, slug} : {event_id: string, slug: string}) => {
         
         const {success} = await BookingEvent({event_id, slug, email})
         setError('');
-        setloarding(true);
+        setloading(true);
         if(success){
-            setloarding(false);
+            setloading(false);
             setSubmitted(true);
             posthog.capture("event_booking", {event_id, slug, email});
         }else {
-            setloarding(false);
+            setloading(false);
             setError("You're already Booked")
         }
     }
@@ -48,7 +48,7 @@ const BookEvent = ({event_id, slug} : {event_id: string, slug: string}) => {
                         />
                     </div>
                     
-                    <button type="submit" className="button-submit" disabled={loarding}>{loarding ? 'Submitting...' : 'Submit'}</button>           
+                    <button type="submit" className="button-submit" disabled={loading}>{loading ? 'Submitting...' : 'Submit'}</button>           
                 </form>
             ) }
         </div>
