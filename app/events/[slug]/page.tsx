@@ -1,5 +1,5 @@
 import { Suspense } from "react";
-import { EventDetails } from "@/components/EventDetails";
+import EventDetails from "@/components/EventDetails";
 
 const EventDetailPage = async ({params} : {params: Promise<{slug:string}> }) => {
     const slug = params.then((p) => p.slug)
@@ -7,7 +7,6 @@ const EventDetailPage = async ({params} : {params: Promise<{slug:string}> }) => 
         <main>
             <Suspense fallback={<div>Loading.......</div>} >
             <EventDetails params={slug} />
-            
             </Suspense>
         </main>
 
