@@ -9,26 +9,22 @@ const BookEvent = ({event_id, slug} : {event_id: string, slug: string}) => {
     const [email, setEmail] = useState('');
     const [submitted, setSubmitted] = useState(false);
     const [error, setError] = useState("");
-    const [loading, setloading] = useState(false);
+    const [loarding, setloarding] = useState(false);
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setloading(true);
         
-        try{
-            const {success} = await BookingEvent({event_id, slug, email})
-            if(success){
-                setloading(false);
-                setSubmitted(true);
-                setError('');
-                posthog.capture("event_booking", {event_id, slug, email});
-            }else {
-                setloading(false);
-                setError("You're already Booked");
-            }
-        }catch{
-            setloading(false);
-            setError("Network Error");
+        const {success} = await BookingEvent({event_id, slug, email})
+        setError('');
+        setloarding(true);
+        if(success){
+            setloarding(false);
+            setSubmitted(true);
+            posthog.capture("event_booking", {event_id, slug, email});
+        }else {
+            setloarding(false);
+            setError("You're already Booked")
         }
     }
 
@@ -52,7 +48,7 @@ const BookEvent = ({event_id, slug} : {event_id: string, slug: string}) => {
                         />
                     </div>
                     
-                    <button type="submit" className="button-submit" disabled={loading}>{loading ? 'Submitting...' : 'Submit'}</button>           
+                    <button type="submit" className="button-submit" disabled={loarding}>{loarding ? 'Submitting...' : 'Submit'}</button>           
                 </form>
             ) }
         </div>

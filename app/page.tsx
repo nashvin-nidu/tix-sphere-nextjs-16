@@ -1,7 +1,7 @@
 import EventCard from "@/components/EventCard";
 import ExploreBtn from "@/components/ExploreBtn";
 import { IEvent } from "@/database";
-// import { events } from "@/lib/constants";
+import { cacheLife, cacheTag } from "next/cache";
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 
@@ -10,9 +10,15 @@ if (!BASE_URL) {
 }
 
 async function Page() {
+  "use cache"
+  cacheLife("hours");
+  cacheTag("event-cache");
   const response = await fetch(`${BASE_URL}/api/events`);
   const data = await response.json()
   const events = data.events
+
+  
+
   return (
     <section> 
       <h1 className="text-center">The Hub for Every Dev <br /> Event You Can&apos;t Miss</h1>
