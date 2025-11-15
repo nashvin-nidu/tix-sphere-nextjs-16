@@ -29,7 +29,7 @@ async function Page() {
       <div className="mt-20 space-y-7">
         <h3>Featured Events</h3>
 
-        <ul className="events list-none">
+        <ul className="events list-none" id="events">
           {events.map((event: IEvent) => 
             (<li key={event.slug}>
               <EventCard {...event} />
