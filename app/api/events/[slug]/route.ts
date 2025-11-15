@@ -41,7 +41,7 @@ export async function GET(_req: NextRequest, context: RouteParams) {
 
     // Return the event document; Mongoose handles toJSON for safe serialization
     return NextResponse.json({message: "Event Fetched Successfully", event}, { status: 200 });
-  } catch (error) {
+  } catch  {
     // Avoid leaking internals in the response; log server-side if needed
     return NextResponse.json(
       { message: "Unexpected error while fetching event" },
