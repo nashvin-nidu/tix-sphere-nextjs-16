@@ -9,7 +9,7 @@ import { cacheLife} from "next/cache";
 import { events } from "@/lib/constants";
 
 
-const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
+// const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 
 
 const EventDetailItem = ({icon, alt, label} : {icon:string; alt: string, label: string}) => (
@@ -45,11 +45,11 @@ export  const EventDetails = async ({params} : {params: Promise<string> }) => {
     const slug = await params;
     // const response = await fetch(`${BASE_URL}/api/events/${slug}`);
     // const { event } = await response.json();
-    const event = events;
+    const event = events.find((e) => e.id === slug);
 
     if(!event) return notFound();
 
-    const {title, description, time, date, agenda, image, location, overview, mode, audience, organizer, tags} = event;
+    // const {title, description, time, date, agenda, image, location, overview, mode, audience, organizer, tags} = event;
 
     const Booking = 0;
     const similarEvents: IEvent[] = await SimilarEventDetails(slug);
@@ -57,34 +57,34 @@ export  const EventDetails = async ({params} : {params: Promise<string> }) => {
    return (
     <section id="event">
         <div className="header">
-            <h1>{title}</h1>
-            <p className="mt-2">{description}</p>
+            <h1>{event.title}</h1>
+            <p className="mt-2">{event.description}</p>
         </div>
 
         <div className="details">
             {/* {leftside Event Content} */}
             <div className="content">
-                <Image src={image} alt="event-banner" className="banner" width={800} height={800}/>
+                <Image src={event.image} alt="event-banner" className="banner" width={800} height={800}/>
                 <section className="flex-col-gap-2">
                     <h2>Overview</h2>
-                    <p>{overview}</p>
+                    <p>{event.overview}</p>
                 </section>
                 <section className="flex-col-gap-2">
                     <h2>Event Details</h2>
-                    <EventDetailItem icon="/icons/calendar.svg" alt="date" label={date} />
-                    <EventDetailItem icon="/icons/clock.svg" alt="clock" label={time} />
-                    <EventDetailItem icon="/icons/pin.svg" alt="pin" label={location} />
-                    <EventDetailItem icon="/icons/mode.svg" alt="mode" label={mode} />
-                    <EventDetailItem icon="/icons/audience.svg" alt="audience" label={audience} />
+                    <EventDetailItem icon="/icons/calendar.svg" alt="date" label={event.date} />
+                    <EventDetailItem icon="/icons/clock.svg" alt="clock" label={event.time} />
+                    <EventDetailItem icon="/icons/pin.svg" alt="pin" label={event.location} />
+                    <EventDetailItem icon="/icons/mode.svg" alt="mode" label={event.mode} />
+                    <EventDetailItem icon="/icons/audience.svg" alt="audience" label={event.audience.toString()} />
                 </section>
 
-                <EventAgenda agendaItems={agenda} />
+                <EventAgenda agendaItems={event.agenda} />
                 <section className="flex-col-gap-2">
                     <h2>About the Organizer</h2>
-                    <p>{organizer}</p>
+                    <p>{event.organizer}</p>
                 </section>
 
-                <EventTags tags={tags} />
+                <EventTags tags={event.tags} />
 
             </div>
 
@@ -93,7 +93,7 @@ export  const EventDetails = async ({params} : {params: Promise<string> }) => {
                 <div className="signup-card">
                     <h2>Book Your Spot</h2>
                     {Booking > 0 ? <p className="text-sm">Join {Booking} have already booked their spot</p> : <p className="text-sm">Be The First to Book Your Spot</p>}
-                    <BookEvent event_id={event._id} slug={event.slug}  />
+                    <BookEvent event_id={event.id} slug={slug}  />
                 </div>
             </aside>
         </div>
