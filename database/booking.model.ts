@@ -5,6 +5,11 @@ import Event from './event.model';
 export interface IBooking extends Document {
   eventId: Types.ObjectId;
   email: string;
+  slug?: string;
+  name?: string;
+  whatsapp?: string;
+  reqNo?: string;
+  section?: string;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -29,6 +34,28 @@ const BookingSchema = new Schema<IBooking>(
         },
         message: 'Please provide a valid email address',
       },
+    },
+    slug: {
+      type: String,
+      trim: true,
+    },
+    name: {
+      type: String,
+      trim: true,
+    },
+    whatsapp: {
+      type: String,
+      trim: true,
+    },
+    reqNo: {
+      type: String,
+      trim: true,
+    },
+    section: {
+      type: String,
+      trim: true,
+      uppercase: true,
+      match: [/^[A-Z0-9]+$/, 'Section must contain only capital letters and numbers'],
     },
   },
   {
