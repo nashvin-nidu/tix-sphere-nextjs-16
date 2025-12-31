@@ -210,17 +210,6 @@ Fetches all events with caching:
 - Cache tag: `event-cache`
 - Returns sorted events (newest first)
 
-## 🌐 Deployment
-
-### Deploy on Vercel
-
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/yourusername/jsm-tixshere-nextjs)
-
-1. Push your code to GitHub
-2. Import repository on [Vercel](https://vercel.com)
-3. Configure environment variables
-4. Deploy!
-
 ### Environment Variables for Production
 
 Ensure all environment variables are set:
