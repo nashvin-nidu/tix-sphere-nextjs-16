@@ -247,10 +247,3 @@ This project is private and proprietary.
 
 This is a personal project. Feel free to fork and customize for your own events platform!
 
-## 📧 Support
-
-For issues or questions, please open an issue on GitHub.
-
----
-
-Built with ❤️ for the developer community
