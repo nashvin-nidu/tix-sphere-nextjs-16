@@ -238,8 +238,3 @@ Utilizes Next.js 16's new cache APIs:
 - `cacheLife("hours")` for event listings
 - `cacheTag("event-cache")` for selective invalidation
 - Optimized performance with reduced database queries
-
-## 📝 License
-
-This project is private and proprietary.
-
