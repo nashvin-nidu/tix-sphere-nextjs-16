@@ -178,12 +178,6 @@ Manages event registrations with:
 ### WebGL Light Rays Animation
 The homepage features a stunning WebGL-powered light rays effect using the OGL library, creating an immersive visual experience.
 
-### Custom Animations
-- Smooth fade-in effects for event cards
-- Hover interactions with scale transforms
-- Loading states for booking submissions
-- Responsive navigation
-
 ### Event Cards
 Beautiful event cards displaying:
 - Event imagery
