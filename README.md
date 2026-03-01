@@ -175,8 +175,6 @@ Manages event registrations with:
 
 ## 🎨 UI Highlights
 
-### WebGL Light Rays Animation
-The homepage features a stunning WebGL-powered light rays effect using the OGL library, creating an immersive visual experience.
 
 ### Event Cards
 Beautiful event cards displaying:
