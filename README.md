@@ -223,7 +223,7 @@ Automatic URL-friendly slug creation from event titles with:
 Accepts both 12-hour (e.g., "2:30 PM") and 24-hour (e.g., "14:30") time formats, automatically converting to consistent 24-hour storage format.
 
 ### Duplicate Booking Prevention
-Email addresses are validated before booking creation to prevent users from registering multiple times for the same event.
+Email addresses are validated before booking creation to prevent users from registering multiple times for the same event
 
 ### Advanced Caching
 Utilizes Next.js 16's new cache APIs:
