@@ -79,7 +79,6 @@ jsm-tixshere-nextjs/
 ```
 
 ## 🚀 Getting Started
-
 ### Prerequisites
 
 - Node.js 20+ and npm/pnpm/yarn/bun
