@@ -12,6 +12,7 @@ A modern event discovery and booking platform built with Next.js 16, tailored fo
 
 ## ✨ Features
 
+
 - **📅 Event Discovery**: Browse curated developer events including hackathons, meetups, and conference
 - **🎟️ Event Booking**: Simple email-based registration system with duplicate prevention
 - **📊 Analytics**: PostHog integration for tracking user behavior and event engagement
